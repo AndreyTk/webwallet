@@ -30,7 +30,21 @@ modules:
       - webwallet.zip
       name: webwallet
       target-path: resources/
+    - artifacts:
+      - front.zip
+      name: front
+      target-path: resources/
 - name: webwallet
+  type: html5
+  path: app/webwallet
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: front
   type: html5
   path: app/webwallet
   build-parameters:
@@ -46,7 +60,7 @@ resources:
   parameters:
     config:
       tenant-mode: dedicated
-      xsappname: wallet-${org}-${space}
+      xsappname: wallet-Zn_Tk_free-xo362g80-${space}
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
