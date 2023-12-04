@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(o){"use strict";return o.extend("front.controller.App",{onInit:function(){},onHomePressed:function(o){this.getOwnerComponent().getRouter().navTo("Routeindex")},goForm:function(o){this.getOwnerComponent().getRouter().navTo("form",{protocol:o})}})});

@@ -1,0 +1,70 @@
+<mvc:View controllerName="front.controller.App"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"     
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    displayBlock="true" >
+    <tnt:ToolHeader id="shellLikeToolHeader" class="sapUiTinyMargin">
+			<Button icon="sap-icon://home" id="goHome" type="Transparent" tooltip="Menu" press="onHomePressed"/>
+				
+			<Image src="img/sap-logo.svg" decorative="false" tooltip="SAP Logo">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Image>
+			<Title text="r_d" wrapping="false" id="productName"/>				
+			<Text text="Веб гаманець" wrapping="false" id="secondTitle"/>				
+
+			<!--ToolbarSpacer />
+			<SearchField width="16rem" id="searchField">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="Low" group="1"/>
+				</layoutData>
+			</SearchField-->
+
+			<ToolbarSpacer id="spacer">
+				<layoutData>
+					<OverflowToolbarLayoutData id="spacerOverflow" priority="Low" group="1"/>
+				</layoutData>
+			</ToolbarSpacer>
+			<!--Button visible="false" icon="sap-icon://search" type="Transparent" id="searchButton" tooltip="Search"/-->
+
+			<OverflowToolbarButton icon="img/ethereum.svg" type="Transparent" tooltip="ETH" text="ETH" press=".goForm('ETH')">
+				<layoutData>
+					<OverflowToolbarLayoutData group="2"/>
+				</layoutData>
+			</OverflowToolbarButton>
+			<OverflowToolbarButton icon="img/coins-solid.svg" type="Transparent" tooltip="ERC20" text="ERC20" press=".goForm('ERC20')">
+				<layoutData>
+					<OverflowToolbarLayoutData group="2"/>
+				</layoutData>
+			</OverflowToolbarButton>
+			<OverflowToolbarButton icon="img/btc.svg" type="Transparent" tooltip="BTC" text="BTC" press=".goForm('BTC')">
+				<layoutData>
+					<OverflowToolbarLayoutData group="2"/>
+				</layoutData>
+			</OverflowToolbarButton>
+			<OverflowToolbarButton icon="img/bnb.png" type="Transparent" tooltip="BNB" text="BNB" press=".goForm('BNB')">
+				<layoutData>
+					<OverflowToolbarLayoutData group="2"/>
+				</layoutData>
+			</OverflowToolbarButton>
+
+			<ToolbarSeparator id="ToolbarSeparator">
+				<layoutData>
+					<OverflowToolbarLayoutData id="OverflowToolbarLayoutData" group="2"/>
+				</layoutData>
+			</ToolbarSeparator>
+
+			<OverflowToolbarButton id="btnSettings" icon="sap-icon://action-settings" type="Transparent" tooltip="Налаштування"/>
+			<Button id="btnBell" icon="sap-icon://bell" type="Transparent" tooltip="Notification"/>
+				
+			
+			<tnt:ToolHeaderUtilitySeparator id="ToolHeaderUtilitySeparator"/>
+			<ToolbarSpacer id="id_qqq11" width="1.125rem"/>
+			<Avatar src="img/Avatar-Sizes-Custom-1.png" id="avatar" displaySize="XS" tooltip="Profile"/>
+
+		</tnt:ToolHeader>
+    <App id="app">
+    </App>
+</mvc:View>

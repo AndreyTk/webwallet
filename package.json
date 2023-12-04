@@ -1,0 +1,34 @@
+{
+    "name": "wallet2",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^7",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+        "@sap/xssec": "^3",
+        "dotenv": "^16.3.1",
+        "ethereum-address": "^0.0.4",
+        "express": "^4",
+        "passport": "^0.7.0",
+        "web3": "^1.9.0"
+    },
+    "devDependencies": {
+        "@cap-js/sqlite": "^1",
+        "@sap/cds-dk": "^7",
+        "@sap/ux-specification": "^1.120.0",
+        "rimraf": "^3.0.2"
+    },
+    "scripts": {
+        "start": "cds-serve",
+        "watch-webwallet": "cds watch --open webwallet/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy wallet2 --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    },
+    "cds": {
+        "requires": {}
+    }
+}
