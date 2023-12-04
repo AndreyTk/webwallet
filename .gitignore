@@ -1,4 +1,4 @@
-# CAP wallet2
+# CAP wallet
 _out
 *.db
 *.sqlite
@@ -9,6 +9,8 @@ gen/
 node_modules/
 target/
 .env
+resources
+dist
 
 # Web IDE, App Studio
 .che/

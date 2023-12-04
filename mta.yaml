@@ -1,13 +1,13 @@
 _schema-version: "3.1"
-ID: wallet2
+ID: wallet
 description: A simple CAP project.
 version: 1.0.0
 modules:
-- name: wallet2-srv
+- name: wallet-srv
   type: nodejs
   path: gen/srv
   requires:
-  - name: wallet2-auth
+  - name: wallet-auth
   provides:
   - name: srv-api
     properties:
@@ -16,11 +16,11 @@ modules:
     buildpack: nodejs_buildpack
   build-parameters:
     builder: npm
-- name: wallet2-app-content
+- name: wallet-app-content
   type: com.sap.application.content
   path: .
   requires:
-  - name: wallet2-repo-host
+  - name: wallet-repo-host
     parameters:
       content-target: true
   build-parameters:
@@ -41,22 +41,22 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
-- name: wallet2-auth
+- name: wallet-auth
   type: org.cloudfoundry.managed-service
   parameters:
     config:
       tenant-mode: dedicated
-      xsappname: wallet2-${org}-${space}
+      xsappname: wallet-${org}-${space}
     path: ./xs-security.json
     service: xsuaa
     service-plan: application
-- name: wallet2-repo-host
+- name: wallet-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
-    service-name: wallet2-html5-srv
+    service-name: wallet-html5-srv
     service-plan: app-host
-- name: wallet2-destination-service
+- name: wallet-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
     config:
@@ -72,7 +72,7 @@ resources:
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
-    service-name: wallet2-destination-service
+    service-name: wallet-destination-service
     service-plan: lite
 parameters:
   deploy_mode: html5-repo
