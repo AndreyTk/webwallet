@@ -1,6 +1,6 @@
 {
   "welcomeFile": "/index.html",
-  "authenticationMethod": "route",
+  "authenticationMethod": "none",
   "routes": [
     {
       "source": "^/resources/(.*)$",
@@ -13,6 +13,18 @@
       "target": "/test-resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
+    },
+    {
+      "source": "/v2/wallet/(.*)$",
+      "target": "/v2/wallet/$1",
+      "destination": "srv_api",
+      "csrfProtection": true
+    },
+    {
+      "source": "/wallet/(.*)$",
+      "target": "/wallet/$1",
+      "destination": "srv_api",
+      "csrfProtection": true
     },
     {
       "source": "^(.*)$",

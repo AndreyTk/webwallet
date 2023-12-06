@@ -1,14 +1,16 @@
 // відповідає за отримання балансу, за отримання адреси і за надсилання транзакцій
 require('dotenv').config();
 const EthLib = require("./eth/EthLib");
-const ETH = "ETH";
+const Erc20Lib = require("./erc20/Erc20Lib");
 
 class BlockchainService{
     constructor(app) {        
         this.app = app
         let eth = new EthLib(app);
+        let erc20 = new Erc20Lib(app);
         this.currencyLibraries = {
             ETH:eth,
+            ERC20:erc20
         }
     }
 
@@ -32,25 +34,23 @@ class BlockchainService{
     getAddress(){
         return new Promise(async(resolve,reject)=>{
             try{
-                let address =await this.getCurrencyLibrary().getAddress();
-                console.log("CurrencyLibrary.getAddress",address);
+                let address =await this.getCurrencyLibrary().getAddress();                
                 return resolve(address);
             }catch (e){
                 return reject(e);
             }
         })
     }
-    //
-    sendCurrency(){
-        let _address = document.getElementById("transfer_address").value;
-        console.log(_address);
-        let _amount=document.getElementById("transfer_amount").value;
-        let currency = this.app.getCurrency();
-        console.log(currency)
-        let result = "Sending "+_amount+" "+currency+" to "+_address;
-        this.getCurrencyLibrary().sendCurrency(_address,_amount);
-        alert(result);
-
+    
+    sendCurrency(receiver,amount){
+        return new Promise(async(resolve,reject)=>{
+            try{
+                let result = await this.getCurrencyLibrary().sendCurrency(receiver,amount);
+                return resolve(result);
+            }catch (e){
+                return reject(e);
+            }
+        })
     }
 }
 

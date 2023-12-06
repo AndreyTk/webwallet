@@ -13,9 +13,11 @@ modules:
     properties:
       srv-url: ${default-url}
   parameters:
-    buildpack: nodejs_buildpack
+    buildpack: nodejs_buildpack    
+    disk-quota: 512M
+    memory: 512M
   build-parameters:
-    builder: npm
+    builder: npm    
 - name: wallet-app-content
   type: com.sap.application.content
   path: .
@@ -31,20 +33,10 @@ modules:
       name: webwallet
       target-path: resources/
     - artifacts:
-      - front.zip
-      name: front
+      - webwallet.zip
+      name: webwallet
       target-path: resources/
 - name: webwallet
-  type: html5
-  path: app/webwallet
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: front
   type: html5
   path: app/webwallet
   build-parameters:
@@ -95,4 +87,9 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
-    - npx cds build --production
+    - npx cds build --production    
+    - npx -p @sap/cds-dk cds build --production
+    - cp app -r  gen/srv/app
+    - rm gen/srv/app/services.cds
+    - rm gen/srv/app/webwallet/annotations.cds
+    - rm -r gen/srv/app/webwallet/dist

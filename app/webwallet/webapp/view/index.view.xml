@@ -2,67 +2,272 @@
     xmlns="sap.ui.webc.main"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:l="sap.ui.layout"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:microchart="sap.suite.ui.microchart"
 	height="100%"
     displayBlock="true"> 
-    <l:HorizontalLayout >
     
-    <l:VerticalLayout class="sapUiContentPadding" width="100%">
-		<Card width="400px">
-			<header>
-				<CardHeader titleText="Team Space" subtitleText="Direct Reports">
-					<avatar>
-						<Icon name="group" />
-					</avatar>
-					<action>
-						<Button name="group" design="Emphasized" text="View All" />
-					</action>
-				</CardHeader>
-			</header>
-			<List separators="None" style="width: 100%; margin-bottom: 0.75rem;">
-				<StandardListItem
-					description="User Researcher"
-					image="{value:'man_avatar_3.png', formatter: '.resolveUrl'}"
-					text="Alain Chevalier" />
-				<StandardListItem
-					description="Artist"
-					image="{value:'woman_avatar_5.png', formatter: '.resolveUrl'}"
-					text="Monique Legrand" />
-				<StandardListItem
-					description="UX Specialist"
-					image="{value:'woman_avatar_4.png', formatter: '.resolveUrl'}"
-					text="Isabella Adams" />
-			</List>
-		</Card>		
-	</l:VerticalLayout>
+	<m:ScrollContainer
+	height="100%"
+	width="100%"
+	vertical="true">
+    
+		<l:HorizontalLayout>
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">		
+			<Card width="400px">
+				
+				<header>
+					<CardHeader titleText="Ethereum" subtitleText="ETH">
+						<avatar>
+							<m:Image src="img/ethereum.svg" />
+						</avatar>
+						<action>
+							<Button name="group" design="Emphasized" text="Перейти" click="goForm('ETH')"/>
+						</action>
+					</CardHeader>
+				</header>
+				<microchart:InteractiveDonutChart selectionChanged="onSelectionChanged">
+					<microchart:segments>
+						<microchart:InteractiveDonutChartSegment label="Implementation Phase" value="40.0" displayedValue="40.0%" color="Error"/>
+						<microchart:InteractiveDonutChartSegment label="Design Phase" value="21.5" displayedValue="21.5%" color="Critical"/>
+						<microchart:InteractiveDonutChartSegment label="Test Phase" value="38.5" displayedValue="38.5%" color="Good"/>
+					</microchart:segments>
+				</microchart:InteractiveDonutChart>
+				<m:NotificationList>
+					<m:NotificationListItem
+						title="New order (#2525) With a very long title - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						description="And with a very long description and long labels of the action buttons - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						showCloseButton="true"
+						datetime="1 hour"
+						unread="true"
+						priority="None"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="Jean Doe"
+						authorPicture="https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/images/Woman_04.png">
+						<m:buttons>
+							<Button text="Accept All Requested Information" press=".onAcceptPress" />
+							<Button text="Reject All Requested Information" press=".onRejectPress" />
+						</m:buttons>
+					</m:NotificationListItem>
+					<m:NotificationListItem
+					title="New order (#2524), without action buttons"
+					description="Short description"
+					showCloseButton="true"
+					datetime="3 days"
+					unread="true"
+					priority="High"
+					close=".onItemClose"
+					press=".onListItemPress"
+					authorName="Office Notification"
+					authorPicture="sap-icon://group" />
 
-    <l:VerticalLayout class="sapUiContentPadding" width="100%">
-		<Card width="400px">
-			<header>
-				<CardHeader titleText="Team Space" subtitleText="Direct Reports">
-					<avatar>
-						<Icon name="group" />
-					</avatar>
-					<action>
-						<Button name="group" design="Emphasized" text="View All" />
-					</action>
-				</CardHeader>
-			</header>
-			<List separators="None" style="width: 100%; margin-bottom: 0.75rem;">
-				<StandardListItem
-					description="User Researcher"
-					image="{value:'man_avatar_3.png', formatter: '.resolveUrl'}"
-					text="Alain Chevalier" />
-				<StandardListItem
-					description="Artist"
-					image="{value:'woman_avatar_5.png', formatter: '.resolveUrl'}"
-					text="Monique Legrand" />
-				<StandardListItem
-					description="UX Specialist"
-					image="{value:'woman_avatar_4.png', formatter: '.resolveUrl'}"
-					text="Isabella Adams" />
-			</List>
-		</Card>		
-	</l:VerticalLayout>
+					<m:NotificationListItem
+						title="New order (#2523) With a long title - Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+						description="And short description"
+						showCloseButton="false"
+						unread="false"
+						datetime="3 days"
+						priority="High"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="Patricia Clark"
+						authorInitials="PC"
+						authorAvatarColor="Accent8">
+						<m:buttons>
+							<Button text="Accept" press=".onAcceptPress" icon="sap-icon://accept" />
+							<Button text="Reject" press=".onRejectPress" icon="sap-icon://sys-cancel" />
+						</m:buttons>
+					</m:NotificationListItem>
+				</m:NotificationList>
+			</Card>		
+		</l:VerticalLayout>
+		</l:HorizontalLayout>
+		<l:HorizontalLayout>
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">	
+			<Card width="400px">
+				<!--layoutData>
+					<f:GridContainerItemLayoutData columns="4"/>
+				</layoutData-->
+				<header>
+					<CardHeader titleText="ANTToken" subtitleText="ERC20">
+						<avatar>
+							<m:Image src="img/coins-solid.svg" />
+						</avatar>
+						<action>
+							<Button name="group" design="Emphasized" text="Перейти" click="goForm('ERC20')"/>
+						</action>
+					</CardHeader>
+				</header>
+				<microchart:InteractiveDonutChart selectionChanged="onSelectionChanged" displayedSegments="4" press="press">
+					<microchart:segments>
+						<microchart:InteractiveDonutChartSegment label="Design Phase" value="45" displayedValue="45.0%"/>
+						<microchart:InteractiveDonutChartSegment label="Implementation Phase" value="5" displayedValue="5%" color="Critical"/>
+						<microchart:InteractiveDonutChartSegment label="Test Phase" value="50" displayedValue="50%"/>
+					</microchart:segments>
+				</microchart:InteractiveDonutChart>
+				<m:NotificationList>
+					<m:NotificationListItem
+						title="New order (#2522)"
+						description="With a very long description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						showCloseButton="true"
+						datetime="3 days"
+						unread="true"
+						priority="Medium"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="John Smith"
+						authorInitials="JS"
+						authorAvatarColor="Accent4" />
 
-    </l:HorizontalLayout>
+					<m:NotificationListItem
+						title="New order (#2521)"
+						description="With a very long description and no action buttons below - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						showCloseButton="true"
+						datetime="3 days"
+						unread="true"
+						priority="Low"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="John Smith"
+						authorPicture="test-resources/sap/m/images/headerImg2.jpg" />
+
+					<m:NotificationListItem
+						title="New order (#2525) With a very long title and truncation disabled by default! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						description="And a very long description and long labels of the action buttons - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						showCloseButton="true"
+						datetime="2 day"
+						unread="false"
+						priority="Low"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="Jean Doe"
+						authorPicture="https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/images/Woman_04.png"
+						truncate="false">
+						<m:buttons>
+							<Button text="Accept" press=".onAcceptPress" />
+						</m:buttons>
+					</m:NotificationListItem>
+				</m:NotificationList>
+			</Card>		
+		</l:VerticalLayout>
+		</l:HorizontalLayout>	
+		<l:HorizontalLayout>	
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">		
+			<Card width="400px">
+				<!--layoutData>
+					<f:GridContainerItemLayoutData columns="5"/>
+				</layoutData-->
+				<header>
+					<CardHeader titleText="BitCoin" subtitleText="BTC">
+						<avatar>
+							<m:Image src="img/btc.svg" />
+						</avatar>
+						<action>
+							<Button name="group" design="Emphasized" text="Перейти" click="goForm('BTC')"/>
+						</action>
+					</CardHeader>
+				</header>
+				<microchart:InteractiveDonutChart selectionChanged="onSelectionChanged" displayedSegments="4" press="press" selectionEnabled="false">
+					<microchart:segments>
+						<microchart:InteractiveDonutChartSegment label="Design Phase" value="32" displayedValue="32.0%" color="Error"/>
+						<microchart:InteractiveDonutChartSegment label="Implementation Phase" value="28" displayedValue="28%" color="Critical"/>
+						<microchart:InteractiveDonutChartSegment label="Test Phase" value="25" displayedValue="25%" color="Good"/>
+					</microchart:segments>
+				</microchart:InteractiveDonutChart>
+				<m:NotificationList>
+					<m:NotificationListItem title="New order (#2525) With a very long title and with truncation enabled but 'Show More' hidden! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc." description="And a very long description and long labels of the action buttons - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc." showCloseButton="true" datetime="2 day" unread="false" priority="Low" close=".onItemClose" press=".onListItemPress" authorName="Jean Doe" authorPicture="https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/images/Woman_04.png" hideShowMoreButton="true" showButtons="false">
+						<m:buttons>
+							<Button text="Accept" press=".onAcceptPress"/>
+							<Button text="Reject" press=".onRejectPress"/>
+						</m:buttons>
+					</m:NotificationListItem>
+					<m:NotificationListItem title="New order (#2523) With a long title without description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet" showCloseButton="false" unread="false" datetime="3 days" priority="High" close=".onItemClose" press=".onListItemPress" authorName="Patricia Clark" authorPicture="test-resources/sap/m/images/female_BaySu.jpg">
+						<m:buttons>
+							<Button text="Accept" press=".onAcceptPress" icon="sap-icon://accept"/>
+							<Button text="Reject" press=".onRejectPress" icon="sap-icon://sys-cancel"/>
+							<Button text="Get Error" press=".onErrorPress" icon="sap-icon://sys-cancel"/>
+						</m:buttons>
+					</m:NotificationListItem>
+					<m:NotificationListItem title="New order (#2523) With a long title without description" showCloseButton="true" unread="false" datetime="3 days" priority="High" close=".onItemClose" press=".onListItemPress"/>		
+				</m:NotificationList>
+			</Card>
+		</l:VerticalLayout>
+		</l:HorizontalLayout>			
+		<l:HorizontalLayout>	
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">			
+			<Card width="400px">
+				<!--layoutData>
+					<f:GridContainerItemLayoutData columns="5"/>
+				</layoutData-->
+				<header>
+					<CardHeader titleText="BNB" subtitleText="BNB">
+						<avatar>
+							<m:Image src="img/bnb.png" />
+						</avatar>
+						<action>
+							<Button name="group" design="Emphasized" text="Перейти" click="goForm('BNB')"/>
+						</action>
+					</CardHeader>
+				</header>
+				<microchart:InteractiveDonutChart selectionChanged="onSelectionChanged" displayedSegments="4" press="press">
+					<microchart:segments>
+						<microchart:InteractiveDonutChartSegment label="Design Phase" value="45" displayedValue="45.0%"/>
+						<microchart:InteractiveDonutChartSegment label="Implementation Phase" value="5" displayedValue="5%" color="Critical"/>
+						<microchart:InteractiveDonutChartSegment label="Test Phase" value="50" displayedValue="50%"/>
+					</microchart:segments>
+				</microchart:InteractiveDonutChart>
+				<m:NotificationList>
+					<m:NotificationListItem
+						title="New order (#2525) With a very long title - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						description="And with a very long description and long labels of the action buttons - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat, turpis vel scelerisque pharetra, tellus odio vehicula dolor, nec elementum lectus turpis at nunc."
+						showCloseButton="true"
+						datetime="1 hour"
+						unread="true"
+						priority="None"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="Jean Doe"
+						authorPicture="https://sapui5.hana.ondemand.com/1.120.1/test-resources/sap/m/images/Woman_04.png">
+						<m:buttons>
+							<Button text="Accept All Requested Information" press=".onAcceptPress" />
+							<Button text="Reject All Requested Information" press=".onRejectPress" />
+						</m:buttons>
+					</m:NotificationListItem>
+					<m:NotificationListItem
+					title="New order (#2524), without action buttons"
+					description="Short description"
+					showCloseButton="true"
+					datetime="3 days"
+					unread="true"
+					priority="High"
+					close=".onItemClose"
+					press=".onListItemPress"
+					authorName="Office Notification"
+					authorPicture="sap-icon://group" />
+
+					<m:NotificationListItem
+						title="New order (#2523) With a long title - Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+						description="And short description"
+						showCloseButton="false"
+						unread="false"
+						datetime="3 days"
+						priority="High"
+						close=".onItemClose"
+						press=".onListItemPress"
+						authorName="Patricia Clark"
+						authorInitials="PC"
+						authorAvatarColor="Accent8">
+						<m:buttons>
+							<Button text="Accept" press=".onAcceptPress" icon="sap-icon://accept" />
+							<Button text="Reject" press=".onRejectPress" icon="sap-icon://sys-cancel" />
+						</m:buttons>
+					</m:NotificationListItem>
+				</m:NotificationList>
+			</Card>
+		</l:VerticalLayout>
+		</l:HorizontalLayout>	
+	
+   	</m:ScrollContainer>
 </mvc:View>

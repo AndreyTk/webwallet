@@ -3,7 +3,9 @@
     xmlns:mvc="sap.ui.core.mvc"     
     xmlns="sap.m"
     xmlns:tnt="sap.tnt"
+	xmlns:main="sap.ui.webc.main"
     displayBlock="true" >
+	<main:Toast id="toast" duration="4000"/>
     <tnt:ToolHeader id="shellLikeToolHeader" class="sapUiTinyMargin">
 			<Button icon="sap-icon://home" id="goHome" type="Transparent" tooltip="Menu" press="onHomePressed"/>
 				
@@ -65,6 +67,7 @@
 			<Avatar src="img/Avatar-Sizes-Custom-1.png" id="avatar" displaySize="XS" tooltip="Profile"/>
 
 		</tnt:ToolHeader>
+		
     <App id="app">
     </App>
 </mvc:View>

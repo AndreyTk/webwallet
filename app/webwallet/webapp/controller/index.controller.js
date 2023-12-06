@@ -10,6 +10,12 @@ sap.ui.define([
         return Controller.extend("front.controller.index", {
             onInit: function () {
                 //console.log(this.getCore());
-            }
+            },
+
+            goForm: function(_protocol) {          
+                this.getOwnerComponent().getRouter().navTo("form", {
+                  protocol : _protocol            
+                });
+              }
         });
     });

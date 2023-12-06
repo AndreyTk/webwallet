@@ -3,8 +3,8 @@
     xmlns="sap.m"
     xmlns:tnt="sap.tnt"
     xmlns:uxap="sap.uxap"
-    xmlns:layout="sap.ui.layout"  
-	xmlns:main="sap.ui.webc.main"  
+    xmlns:layout="sap.ui.layout" 
+	xmlns:main="sap.ui.webc.main" 	  
     displayBlock="true">    
 
 	<main:Toast id="toast" duration="4000"/>
@@ -46,11 +46,13 @@
 				<ObjectStatus title="Email" text="andriy.tkachuk@algorithm-plus.com"/>
 			</layout:VerticalLayout>
 			<Text width="200px"
-					text="Hi, I'm Denise. I am passionate about what I do and I'll go the extra mile to make the customer win."/>
+					text="Дана сторінка створена в демонстраційних цілях. Деякі елементи показані лише як приклад."/>
 
-			<ObjectStatus text="In Stock" state="Error"/>
-			<ObjectStatus title="Label" text="In Stock" state="Warning"/>
-			<ObjectNumber number="1000" unit="SOOK" emphasized="false" state="Success"/>
+			<Image src="{logo}" height="80px" backgroundSize="Auto"/>			
+
+			<ObjectStatus text="Nonce: {transactions/0/transactionIndex}" state="Error"/>
+			<ObjectStatus title="Gas Price" text="20 Gwei" state="Warning"/>
+			<ObjectNumber number="0.00000002" unit="ETH" emphasized="false" state="Success"/>
 			<ProgressIndicator
 					percentValue="30"
 					displayValue="Westing 30%"
@@ -66,31 +68,8 @@
 					}"
 					number="{balance}" 
 					unit="{symbol}"/>
-			</layout:VerticalLayout>
-			<layout:VerticalLayout>
-				<layout:layoutData>
-					<uxap:ObjectPageHeaderLayoutData visibleS="false"/>
-				</layout:layoutData>
-				<Label text="PC, Not in Small Size"/>
-				<ObjectNumber class="sapMObjectNumberLarge" number="220" unit="K"/>
-			</layout:VerticalLayout>
-			<layout:VerticalLayout>
-				<layout:layoutData>
-					<uxap:ObjectPageHeaderLayoutData visibleM="false" />
-				</layout:layoutData>
-				<Label text="PC, Not in Medium Size"/>
-				<ObjectNumber class="sapMObjectNumberLarge" number="221" unit="K"/>
-			</layout:VerticalLayout>
-			<layout:VerticalLayout>
-				<layout:layoutData>
-					<uxap:ObjectPageHeaderLayoutData visibleL="false"/>
-				</layout:layoutData>
-				<Label text="PC, Not in Large Size"/>
-				<ObjectNumber class="sapMObjectNumberLarge" number="219" unit="K"/>
-			</layout:VerticalLayout>
-			<ObjectAttribute title="Label" text="In Stock"/>
+			</layout:VerticalLayout>						
 			
-			<Image src="{logo}" height="80px" backgroundSize="Auto"/>	
 		</uxap:headerContent>
 
 		<uxap:sections>
@@ -102,9 +81,10 @@
                             <Label text="Отримувач" labelFor="receiverInput" />
                             <MaskInput 
 								value = "{to}"
-                                mask="****************************************" 
+                                mask="0x****************************************" 
                                 placeholderSymbol=" " 
                                 placeholder="адреса отримувача (0x5B38Da6a701c568545dCfcB03FcB875f56beddC4)"
+								showClearIcon="true"
                                 width="100%">
                                 <rules>
                                     <MaskInputRule/>
@@ -112,13 +92,17 @@
                             </MaskInput>
                             
                             <Label text="Сума (Value)"/>
-				            <MaskInput 
-								value = "{value}"
-                                mask="999999999999" 
+				            <MaskInput 							
+								value = "{value}"  
+								mask="******************" 
                                 placeholderSymbol=" " 
                                 placeholder="Кількість монет" 
                                 showClearIcon="true" 
-                                width="100%"/>
+                                width="100%">	
+								<rules>
+									<MaskInputRule maskFormatSymbol="*" regex="[0-9.,]"/>
+								</rules>															
+                            </MaskInput>
 
 							<Button text="Відправити" press="clickSend" type="Emphasized" />
                         </layout:VerticalLayout>
@@ -134,18 +118,29 @@
 							<List
 								items="{transactions}">
 								<ObjectListItem
-									title="{address}"
+									title="{transactionHash}"
 									type="Active"
 									press="onListItemPress"
 									number="{value}"
-									numberUnit="{wallets>/currentProtocol}">
+									numberUnit="{wallets>/currentProtocol}"
+									busy="{
+										path:'status',
+										formatter: '.emptyBussy'
+									}">									
 									<firstStatus>
 										<ObjectStatus
-											text="Завершена"
-											state="Success" />
+											text="{
+												path:'status',
+												formatter: '.transactionStatusText'
+											}"
+											state="{
+												path:'status',
+												formatter: '.transactionStatusState'
+											}" />
 									</firstStatus>
-									<ObjectAttribute text="01.02.2023 23:33:00.987" />
-									<ObjectAttribute text="from: 0x0000000000000000000" />
+									<ObjectAttribute text="to: {to}" />
+									<ObjectAttribute text="gasUsed: {gasUsed}"/>
+									<ObjectAttribute text="blockNumber: {blockNumber}" />
 								</ObjectListItem>
 							</List>
 						</uxap:blocks>

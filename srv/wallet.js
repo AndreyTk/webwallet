@@ -25,8 +25,11 @@ module.exports = class wallet {
       this.currency = currency;
     }
 
-    sendCurrency(){
-        return this.blockchainService.sendCurrency();
+    async sendCurrency(req){
+      let {receiver} = req.data;
+      let {amount} = req.data;
+      let result = await this.blockchainService.sendCurrency(receiver,amount);
+      return result;
     }
 
     async getAddress() {      
