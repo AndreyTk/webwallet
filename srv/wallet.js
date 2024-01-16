@@ -1,13 +1,20 @@
 const DEFAULT_CURRENCY = "ETH";
+const NODE_ENV = process.env.NODE_ENV;
 
+const HttpService = require("./services/HttpService");
 const BlockchainService = require('./utils/BlockchainService');
 
 module.exports = class wallet {    
 
     constructor(){
       this.currency = DEFAULT_CURRENCY;
+      this.httpService = new HttpService(this);      
       let blockchainService = new BlockchainService(this);
-      this.blockchainService = blockchainService;
+      this.blockchainService = blockchainService;      
+    }
+
+    isProduction(){
+        return NODE_ENV == "production";
     }
    
     getCurrency(){
@@ -40,6 +47,23 @@ module.exports = class wallet {
     async getBalance(){
       let balance = await this.blockchainService.getBalance();
       return balance.toString();
+    }
+
+    async getCurrentBalance(){
+      let result = await this.blockchainService.getCurrentBalance();
+      return result.toString();
+    }
+
+    async generateMnemonic(){      
+      let result = await this.blockchainService.generateMnemonic();
+      return result.toString();
+    }
+
+    async importMnemonic(req){
+      let {mnemonic} = req.data;      
+      let result = await this.blockchainService.importMnemonic(mnemonic);           
+      //this.walletUi.renderUi();
+      return result.toString();
     }
    
   }

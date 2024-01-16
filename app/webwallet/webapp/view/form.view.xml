@@ -25,10 +25,10 @@
 							  objectImageURI="{logo}"
 							  titleSelectorTooltip="Custom Tooltip">
 				<uxap:actions>
-					<uxap:ObjectPageHeaderActionButton icon="sap-icon://action" text="action" importance="Low" tooltip="action"/>
-					<uxap:ObjectPageHeaderActionButton icon="sap-icon://action-settings" text="settings" importance="Low" tooltip="action-settings"/>
-					<uxap:ObjectPageHeaderActionButton icon="sap-icon://edit" text="edit" importance="Medium" tooltip="edit"/>
-					<uxap:ObjectPageHeaderActionButton icon="sap-icon://save" text="save" visible="false" tooltip="save"/>					
+					<uxap:ObjectPageHeaderActionButton icon="sap-icon://business-card" text="action" importance="Low" tooltip="fillAddress" press="fillAddress"/>
+					<uxap:ObjectPageHeaderActionButton icon="sap-icon://paid-leave" text="settings" importance="Low" tooltip="fillBalance" press="fillBalance"/>
+					<!--uxap:ObjectPageHeaderActionButton icon="sap-icon://edit" text="edit" importance="Medium" tooltip="edit"/-->
+					
 				</uxap:actions>				
 			</uxap:ObjectPageHeader>
 		</uxap:headerTitle>
@@ -79,17 +79,12 @@
 						<uxap:blocks>                            
 							<layout:VerticalLayout class="sapUiContentPadding" width="100%">
                             <Label text="Отримувач" labelFor="receiverInput" />
-                            <MaskInput 
+							<Input 
 								value = "{to}"
-                                mask="0x****************************************" 
-                                placeholderSymbol=" " 
-                                placeholder="адреса отримувача (0x5B38Da6a701c568545dCfcB03FcB875f56beddC4)"
-								showClearIcon="true"
-                                width="100%">
-                                <rules>
-                                    <MaskInputRule/>
-                                </rules>
-                            </MaskInput>
+							 	placeholder="адреса отримувача (0x5B38Da6a701c568545dCfcB03FcB875f56beddC4)"
+							 	showClearIcon="true"
+                                width="100%"
+							 />                            
                             
                             <Label text="Сума (Value)"/>
 				            <MaskInput 							

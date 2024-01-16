@@ -92,4 +92,4 @@ build-parameters:
     - cp app -r  gen/srv/app
     - rm gen/srv/app/services.cds
     - rm gen/srv/app/webwallet/annotations.cds
-    - rm -r gen/srv/app/webwallet/dist
+#    - rm -r gen/srv/app/webwallet/dist

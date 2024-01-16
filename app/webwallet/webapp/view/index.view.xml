@@ -27,6 +27,7 @@
 						</action>
 					</CardHeader>
 				</header>
+				
 				<microchart:InteractiveDonutChart selectionChanged="onSelectionChanged">
 					<microchart:segments>
 						<microchart:InteractiveDonutChartSegment label="Implementation Phase" value="40.0" displayedValue="40.0%" color="Error"/>

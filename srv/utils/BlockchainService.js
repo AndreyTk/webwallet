@@ -2,15 +2,28 @@
 require('dotenv').config();
 const EthLib = require("./eth/EthLib");
 const Erc20Lib = require("./erc20/Erc20Lib");
+const BtcLib = require("./btc/BtcLib");
+const BnbLib = require("./bnb/BnbLib");
+const LtcLib = require("./ltc/LtcLib");
+const CredentialService = require("./credentials/CredentialService");
 
 class BlockchainService{
     constructor(app) {        
-        this.app = app
+        this.app = app        
+        this.credentials = new CredentialService(app);
+
         let eth = new EthLib(app);
         let erc20 = new Erc20Lib(app);
+        let btc = new BtcLib(app);
+        let bnb = new BnbLib(app);
+        let ltc = new LtcLib(app);
+
         this.currencyLibraries = {
             ETH:eth,
-            ERC20:erc20
+            ERC20:erc20,
+            BTC:btc,
+            BNB:bnb,
+            LTC:ltc
         }
     }
 
@@ -18,12 +31,11 @@ class BlockchainService{
         let currentCurrency = this.app.getCurrency();
         return this.currencyLibraries[currentCurrency];
     }
-    
-    getBalance(){
+
+    getCurrentBalance(){
         return new Promise(async(resolve,reject)=>{
-            try{
-                let address = await this.getAddress();
-                let balance = await this.getCurrencyLibrary().getBalance(address);
+            try{                
+                let balance = await this.getCurrencyLibrary().getCurrentBalance();                
                 return resolve(balance);
             }catch (e){
                 return reject(e);
@@ -34,19 +46,50 @@ class BlockchainService{
     getAddress(){
         return new Promise(async(resolve,reject)=>{
             try{
-                let address =await this.getCurrencyLibrary().getAddress();                
+                let address =await this.getCredentials().getAddress();
                 return resolve(address);
             }catch (e){
                 return reject(e);
             }
         })
     }
-    
+
+    getPrivateKey(){
+        return new Promise(async(resolve,reject)=>{
+            try{
+                let privKey =await this.getCredentials().getPrivateKey();
+                return resolve(privKey);
+            }catch (e){
+                return reject(e);
+            }
+        })
+    }
+
+    //
     sendCurrency(receiver,amount){
         return new Promise(async(resolve,reject)=>{
             try{
                 let result = await this.getCurrencyLibrary().sendCurrency(receiver,amount);
                 return resolve(result);
+            }catch (e){
+                return reject(e);
+            }
+        })
+    }
+
+    getCredentials(){
+        return this.credentials;
+    }
+
+    generateMnemonic(){
+        return this.getCredentials().generateMnemonic();
+    }
+
+    importMnemonic(mnemonic){
+        return new Promise(async(resolve,reject)=>{
+            try{
+                let result =await this.getCredentials().importMnemonic(mnemonic);
+                return resolve("importMnemonic ok");
             }catch (e){
                 return reject(e);
             }

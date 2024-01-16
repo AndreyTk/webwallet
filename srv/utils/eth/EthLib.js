@@ -1,3 +1,4 @@
+//const PROVIDER_URL = require("../../isProduction")?process.env.PROD_ETH_PROVIDER_URL:process.env.DEV_ETH_PROVIDER_URL;
 const PROVIDER_URL = process.env.ETH_PROVIDER_URL;
 const PRIVATE_KEY = process.env.ETH_PRIVATE_KEY;
 
@@ -12,33 +13,38 @@ const EthConverter = require('../../helpers/EthConverter');
 const Validator = require('../../validators/blockchain/EthValidator');
 
 const AbstractCurrencyLib = require('../AbstractCurrencyLib');
+const buildProvider = require('./ProviderBuilder');
+const EthNetworkHelper = require('./EthNetworkHelper');
+
 class EthLib extends AbstractCurrencyLib{
     constructor(app) {
-        let provider = new Web3(new Web3.providers.HttpProvider(PROVIDER_URL));
+        let provider = buildProvider(PROVIDER_URL);
         let validator = new Validator();
         let converter = new EthConverter();
         super(app,provider,validator,converter);
     }
 
+
+
     _getChainId(){
-        return 11155111;
+        return EthNetworkHelper.getNetwork();
     }
 
-    getAddress(){
-        return new Promise(async(resolve,reject)=>{
-            try{
-
-                // let address = DEFAULT_ADDRESS;
-                // return resolve(address);
-                let privKey = await this.getPrivateKey()
-                let address = this.provider.eth.accounts.privateKeyToAccount(privKey)["address"];
-
-                return resolve(address);
-            }catch (e){
-                return reject(e);
-            }
-        })
-    }
+    // getAddress(){
+    //     return new Promise(async(resolve,reject)=>{
+    //         try{
+    //
+    //             // let address = DEFAULT_ADDRESS;
+    //             // return resolve(address);
+    //             let privKey = await this.getPrivateKey()
+    //             let address = this.provider.eth.accounts.privateKeyToAccount(privKey)["address"];
+    //
+    //             return resolve(address);
+    //         }catch (e){
+    //             return reject(e);
+    //         }
+    //     })
+    // }
     getBalance(address){
         return new Promise(async(resolve,reject)=>{
             try{
@@ -52,10 +58,31 @@ class EthLib extends AbstractCurrencyLib{
         })
     }
 
+    // getPrivateKey(){
+    //     return new Promise(async(resolve,reject)=>{
+    //         try{
+    //             return resolve(PRIVATE_KEY);
+    //         }catch (e){
+    //             return reject(e);
+    //         }
+    //     })
+    // }
+
+    getAddress(){
+        return new Promise(async(resolve,reject)=>{
+            try{
+                let address = this.app.blockchainService.getAddress();
+                return resolve(address);
+            }catch (e){
+                return reject(e);
+            }
+        })
+    }
     getPrivateKey(){
         return new Promise(async(resolve,reject)=>{
             try{
-                return resolve(PRIVATE_KEY);
+                let privKey = this.app.blockchainService.getPrivateKey();
+                return resolve(privKey);
             }catch (e){
                 return reject(e);
             }
@@ -145,7 +172,7 @@ class EthLib extends AbstractCurrencyLib{
         return new Promise(async (resolve,reject)=>{
             try{
                 console.log('making Transaction');
-                let tx = new Transaction(txParams,{'chain':'sepolia', 'chainId':'11155111'});
+                let tx = new Transaction(txParams,{'chain':'sepolia', 'chainId':'11155111'});// TODO
                 console.log(tx);
                 console.log('signing tx');
                 tx.sign(txParams.privateKey);
@@ -154,8 +181,7 @@ class EthLib extends AbstractCurrencyLib{
                 console.log('tx serialized');
                 this.provider.eth.sendSignedTransaction(raw).on("receipt",(data)=>{
                     console.log(data);
-                    //let transactionHash = data["transactionHash"];
-                    let transactionHash = data;
+                    let transactionHash = data["transactionHash"];
                     return resolve(transactionHash);
                 }).on("error",(e)=>{
                     console.error(e);

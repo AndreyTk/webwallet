@@ -17,12 +17,19 @@
 			<Title text="r_d" wrapping="false" id="productName"/>				
 			<Text text="Веб гаманець" wrapping="false" id="secondTitle"/>				
 
-			<!--ToolbarSpacer />
-			<SearchField width="16rem" id="searchField">
-				<layoutData>
-					<OverflowToolbarLayoutData priority="Low" group="1"/>
-				</layoutData>
-			</SearchField-->
+			<ToolbarSpacer />
+			<!-- type="Password" -->
+			<Input
+				id="mnemonic"
+				width="30rem"
+				
+				placeholder="Введіть sid фразу" 				
+				value="{/mnemonic}"
+			/>			
+			<Button icon="sap-icon://private" press=".inputMnemonic" tooltip="Авторизуватися"/>
+			<Button icon="sap-icon://pixelate" press=".generateMnemonic" tooltip="Згенерувати мнемонік"/>
+					
+			<ToolbarSpacer />
 
 			<ToolbarSpacer id="spacer">
 				<layoutData>
@@ -47,6 +54,11 @@
 				</layoutData>
 			</OverflowToolbarButton>
 			<OverflowToolbarButton icon="img/bnb.png" type="Transparent" tooltip="BNB" text="BNB" press=".goForm('BNB')">
+				<layoutData>
+					<OverflowToolbarLayoutData group="2"/>
+				</layoutData>
+			</OverflowToolbarButton>
+			<OverflowToolbarButton icon="img/ltc.png" type="Transparent" tooltip="LTC" text="LTC" press=".goForm('LTC')">
 				<layoutData>
 					<OverflowToolbarLayoutData group="2"/>
 				</layoutData>

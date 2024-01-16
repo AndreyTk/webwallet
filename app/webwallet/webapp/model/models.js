@@ -25,6 +25,7 @@ sap.ui.define([
             createWalletsModel: function () {
                 let walletsJSON = {
                     currentProtocol: "ETH",
+                    mnemonic: "season project outer weird hedgehog flame test unlock fork giant taste first",
                     ETH: {
                         symbol : "ETH",
                         name : "Ethereum",
@@ -70,22 +71,11 @@ sap.ui.define([
                         logo : "img/btc.svg",
                         balance : 0,
                         owner : "",
-                        to : "0x000...002",
-                        value : 2,
-                        transactions : [
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"}
-                        ]
+                        to : "",
+                        value : null,
+                        address: "",
+                        externalSite: `https://blockcypher.com/#id`,
+                        transactions : []
                     },
                     BNB: {
                         symbol : "BNB",
@@ -94,22 +84,24 @@ sap.ui.define([
                         logo : "img/bnb.png",
                         balance : 0,
                         owner : "",
-                        to : "0x000...002",
-                        value : 2,
-                        transactions : [
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"},
-                            {address: "address1", value:"100"},
-                            {address: "address2", value:"200"}
-                        ]
+                        to : "",
+                        value : null,
+                        address: "",
+                        externalSite: `https://testnet.bscscan.com/tx/#id`,
+                        transactions : []
+                    },
+                    LTC: {
+                        symbol : "LTC",
+                        name : "LightCoin",
+                        ico : "img/ltc.png",
+                        logo : "img/ltc.png",
+                        balance : 0,
+                        owner : "",
+                        to : "",
+                        value : null,
+                        address: "",
+                        externalSite: `https://testnet.bscscan.com/tx/#id`,
+                        transactions : []
                     },
                     
                 };

@@ -27,13 +27,11 @@ sap.ui.define([
                 
                 walletsModel = this.getOwnerComponent().getModel("wallets");   
                 this.getView().setModel(walletsModel);
-
-                //oData = walletsModel.getData();
-
+                
                 toast = this.getView().byId("toast");                
             },
 
-            _onRouteFound: function(oEvent) {
+            _onRouteFound: function(oEvent) {                
                 protocol = oEvent.getParameter("arguments").protocol;                
                 var path = "/"+protocol;
                 this.getView().bindElement(path);
@@ -54,13 +52,16 @@ sap.ui.define([
                 this.sendCurrency(to, value);
             },
 
-            changeCurrency(){          
-                let unit = "changeCurrency";                                      
+            changeCurrency(){                      
+                let unit = "changeCurrency";       
+                let isMnemonic = walletsModel.getProperty("/mnemonic") != "";                                
                 mainModel.read("/changeCurrency", {
                     urlParameters : {"currency":currency},
-                    success : function(oData, oResponse){                                                    
-                        that.fillAddress();
-                        that.fillBalance();                        
+                    success : function(oData, oResponse){   
+                        if (isMnemonic){                            
+                            that.fillAddress();
+                            that.fillBalance();                        
+                        }                    
                     },                   
                     error: function(oError ){
                        console.log("ERROR "+unit, oError);
@@ -68,7 +69,7 @@ sap.ui.define([
                 });
             },
 
-            fillAddress: function(){
+            fillAddress: function(){                
                 let unit = "address";
                 walletsModel.setProperty("/"+protocol+"/"+unit,"");                
                 mainModel.read("/getAddress", { 
@@ -87,9 +88,10 @@ sap.ui.define([
             fillBalance: function(){
                 let unit = "balance";
                 walletsModel.setProperty("/"+protocol+"/"+unit,"");
-                mainModel.read("/getBalance", { 
-                    success : function(oData, oResponse){                          
-                        let value = oData.getBalance;
+                //mainModel.read("/getBalance", { 
+                mainModel.read("/getCurrentBalance", {                         
+                    success : function(oData, oResponse){                           
+                        let value = oData.getCurrentBalance;
                         walletsModel.setProperty("/"+protocol+"/"+unit,value);
                     },                   
                     error: function(oError ){
@@ -111,8 +113,12 @@ sap.ui.define([
                         "amount": value.replaceAll(",", ".")
                     },
                     success : function(oData, oResponse){      
-                        //console.log(oData.sendCurrency);
-                        walletsModel.setProperty("/"+protocol+"/transactions/0", oData.sendCurrency);
+                        console.log(oData);
+                        var tx = {
+                            transactionHash: oData.sendCurrency,
+                            status: true
+                        }
+                        walletsModel.setProperty("/"+protocol+"/transactions/0", tx);
                         that.fillBalance();                        
                     },                   
                     error: function(oError ){
